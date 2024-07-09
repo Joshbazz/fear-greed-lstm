@@ -4,7 +4,7 @@
 
 This project implements an LSTM Deep Learning Network trained on Fear and Greed Index data for Predicting Closing Bitcoin Prices.
 
-You can view the detailed write-up about the code [here]().
+You can view the detailed write-up about the code [here](https://joshbazzano.substack.com/p/c48aaf2c-ff9b-4d1a-9857-e8b027353a3e).
 
 ## Run the Code in Google Colab
 
