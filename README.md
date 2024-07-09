@@ -14,7 +14,7 @@ If you prefer running the code without downloading the repository or if you're a
 
 Simply navigate to the top bar, and under Runtime, click on "Run All" (see below):
 
-![Run All in Colab](references/image.png.png)
+![Run All in Colab](references/image.png)
 
 Note: Initial downloads may be required when running in Colab.
 
