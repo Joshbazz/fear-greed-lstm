@@ -1,0 +1,31 @@
+Start                     2022-11-30 00:00:00
+End                       2024-07-07 00:00:00
+Duration                    585 days 00:00:00
+Exposure Time [%]                   72.525597
+Equity Final [$]               2217633.241871
+Equity Peak [$]                2220191.350465
+Return [%]                         121.763324
+Buy & Hold Return [%]              225.298619
+Return (Ann.) [%]                   64.226508
+Volatility (Ann.) [%]               50.055713
+Sharpe Ratio                           1.2831
+Sortino Ratio                        3.932089
+Calmar Ratio                         3.206743
+Max. Drawdown [%]                  -20.028578
+Avg. Drawdown [%]                   -3.039657
+Max. Drawdown Duration      109 days 00:00:00
+Avg. Drawdown Duration       17 days 00:00:00
+# Trades                                  168
+Win Rate [%]                        85.119048
+Best Trade [%]                      74.973904
+Worst Trade [%]                     -5.096245
+Avg. Trade [%]                      30.828811
+Max. Trade Duration         205 days 00:00:00
+Avg. Trade Duration          99 days 00:00:00
+Profit Factor                       99.640767
+Expectancy [%]                      33.349804
+SQN                                 19.791067
+_strategy                      SignalStrategy
+_equity_curve                             ...
+_trades                        Size  Entry...
+dtype: object

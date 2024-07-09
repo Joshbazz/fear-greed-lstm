@@ -1,62 +1,73 @@
-# fear-greed-lstm
+# Fear and Greed LSTM Deep Learning Trading Algorithm
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+[![CCDS Project Template](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)](https://cookiecutter-data-science.drivendata.org/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/Neural_Network_Trading_Algo/blob/main/main.ipynb)
 
-An application for training, testing, and backtesting an LSTM with Fear/Greed Index to trade Bitcoin
+This project implements an LSTM Deep Learning Network trained on Fear and Greed Index data for Predicting Closing Bitcoin Prices.
 
-## Project Organization
+You can view the detailed write-up about the code [here]().
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for fear_greed_lstm
-│                         and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── fear_greed_lstm                <- Source code for use in this project.
-    │
-    ├── __init__.py    <- Makes fear_greed_lstm a Python module
-    │
-    ├── data           <- Scripts to download or generate data
-    │   └── make_dataset.py
-    │
-    ├── features       <- Scripts to turn raw data into features for modeling
-    │   └── build_features.py
-    │
-    ├── models         <- Scripts to train models and then use trained models to make
-    │   │                 predictions
-    │   ├── predict_model.py
-    │   └── train_model.py
-    │
-    └── visualization  <- Scripts to create exploratory and results oriented visualizations
-        └── visualize.py
-```
+## Run the Code in Google Colab
 
---------
+If you prefer running the code without downloading the repository or if you're a non-technical user, you can run the project directly in Google Colab. Click the badge below to open the notebook in your browser:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/Neural_Network_Trading_Algo/blob/main/main.ipynb)
+
+Simply navigate to the top bar, and under Runtime, click on "Run All" (see below):
+
+![Run All in Colab](./neural_network_trading_algo/visualization/Colab_run_all.png)
+
+Note: Initial downloads may be required when running in Colab.
+
+## Project Structure
+
+Both the Python and Jupyter Notebook implementations are held in the main directory. To run the project:
+1. Navigate to the `LSTMModel.py` file in your terminal.
+2. Execute the file to perform:
+   - Data gathering
+   - Preprocessing
+   - Model training
+   - Training Visualizations
+   - Model saving
+   - Model evaluation
+   - Evaluation Visualizations
+   - Signal generation
+   - Backtesting the strategy on generated signals
+
+## Installation
+
+To install the required packages and dependencies, follow these steps:
+
+1. **Clone the Repository**:
+   
+   ```bash
+   git clone https://github.com/Joshbazz/fear-greed-lstm.git
+   cd fear-greed-lstm
+
+3. **Install Make with Conda if not Already Installed (optional but recommended)**
+   ```bash
+   conda install -c conda-forge make
+
+2. **Create a Virtual Environment with Make (optional but recommended)**
+   ```makefile
+   make create_environment
+
+3. **Activate the Environment before Downloading Requirements**
+   ```bash
+   conda activate fear-greed-lstm
+
+4. **Install Dependencies**
+   ```makefile
+   make requirements
+
+**NOTE:** 
+Due to issues with graphviz, in `LSTMModel.py`, the (`save_and_visualize_model(self.model_path)`) is commented out. If you successfully get graphviz installed, you can uncomment.
+
+You'll need to locally install Graphviz and/or Make in order to run the `make` commands and create the model visualization. To download Make for Windows, open up Powershell and run: `winget install ezwinports.make` 
+
+There's an issue where using graphviz on VScode run from the Anaconda Platform is creating issues. Make sure you are running VScode explicitly from your own separate download. VScode can be downloaded [here](https://code.visualstudio.com)
+
+Links for downloading Make (Windows) are [here](https://gnuwin32.sourceforge.net/packages/make.htm), and downloads for Graphviz are included [here](https://graphviz.org).
+
+
+
 
