@@ -1,6 +1,6 @@
 # Fear and Greed LSTM Deep Learning Trading Algorithm
 
-[![CCDS Project Template](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)](https://cookiecutter-data-science.drivendata.org/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/fear-greed-lstm/blob/master/main.ipynb)
+[![CCDS Project Template](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)](https://cookiecutter-data-science.drivendata.org/) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/fear-greed-lstm/blob/master/colab.ipynb)
 
 This project implements an LSTM Deep Learning Network trained on Fear and Greed Index data for Predicting Closing Bitcoin Prices.
 
@@ -10,7 +10,7 @@ You can view the detailed write-up about the code [here](https://joshbazzano.sub
 
 If you prefer running the code without downloading the repository or if you're a non-technical user, you can run the project directly in Google Colab. Click the badge below to open the notebook in your browser:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/fear-greed-lstm/blob/master/main.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Joshbazz/fear-greed-lstm/blob/master/colab.ipynb)
 
 Simply navigate to the top bar, and under Runtime, click on "Run All" (see below):
 
@@ -32,6 +32,10 @@ Both the Python and Jupyter Notebook implementations are held in the main direct
    - Evaluation Visualizations
    - Signal generation
    - Backtesting the strategy on generated signals
+
+## Example:
+
+There is an example run of a whole backtest, optimized and non-optimized, contained with the backtests folder
 
 ## Installation
 
