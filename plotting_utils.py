@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -33,6 +34,10 @@ def plot_mae_training_history(history):
     save_plot("MAE_training_history")
 
 def plot_predicted_actual(actual, predicted):
+    # Flatten the 2D arrays to 1D
+    actual = np.ravel(actual)
+    predicted = np.ravel(predicted)
+
     df = pd.DataFrame({'Actual': actual, 'Predicted': predicted})
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x='Actual', y='Predicted', data=df)
@@ -44,7 +49,12 @@ def plot_predicted_actual(actual, predicted):
     save_plot("Predicted_vs_Actual")
 
 def plot_residuals(actual, predicted):
-    residuals = [actual - predicted for actual, predicted in zip(actual, predicted)]
+    # Flatten the 2D arrays to 1D
+    actual = np.ravel(actual)
+    predicted = np.ravel(predicted)
+    residuals = actual - predicted
+
+    # residuals = [actual - predicted for actual, predicted in zip(actual, predicted)]
     df = pd.DataFrame({'Actual': actual, 'Predicted': predicted, 'Residuals': residuals})
     plt.figure(figsize=(10, 6))
     sns.scatterplot(x='Predicted', y='Residuals', data=df)

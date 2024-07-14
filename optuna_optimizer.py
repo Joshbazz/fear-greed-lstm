@@ -1,14 +1,3 @@
-'''
-Number of finished trials: 81
-Best trial:
-  Value: 0.06268388032913208
-  Params: 
-    LSTM Neurons: 92
-    Dropout Rate: 0.23429094656174487
-    learning_rate: 0.00011610230657160765
-'''
-
-
 import optuna
 import pandas as pd
 from keras.backend import clear_session
@@ -25,32 +14,30 @@ X_scaler = RobustScaler()
 y_scaler = RobustScaler()
 preprocessor = DataPreprocessor(X_scaler, y_scaler)
 
-N_TRAIN_EXAMPLES = 3000
-N_VALID_EXAMPLES = 1000
 BATCHSIZE = 64
 VALIDATION_SPLIT = 0.25
 CLASSES = 10
-EPOCHS = 100
+EPOCHS = 200
 
 def objective(trial):
     # Clear clutter from previous Keras session graphs.
     clear_session()
 
-    X_train_scaled, X_test_scaled, y_train_scaled, y_test_scaled, _, _ = preprocessor.preprocess_data(data)
+    X_train_scaled, X_test_scaled, y_train_scaled, y_test_scaled, _, _, _, _, _ = preprocessor.preprocess_data(data)
 
     # Print shapes for debugging
     print(f"X_train_scaled shape: {X_train_scaled.shape}")
     print(f"X_test_scaled shape: {X_test_scaled.shape}")
 
-    X_train_scaled = X_train_scaled.reshape((X_train_scaled.shape[0], 1, X_train_scaled.shape[1])) 
-    X_test_scaled = X_test_scaled.reshape((X_test_scaled.shape[0], 1, X_test_scaled.shape[1]))
+    X_train_scaled = X_train_scaled.reshape((X_train_scaled.shape[0], X_train_scaled.shape[1], X_train_scaled.shape[2])) 
+    X_test_scaled = X_test_scaled.reshape((X_test_scaled.shape[0], X_test_scaled.shape[1], X_test_scaled.shape[2]))
 
     timesteps = X_train_scaled.shape[1] 
     features = X_train_scaled.shape[2]
     
     model = Sequential()
     model.add(Input(shape=(timesteps, features)))
-    model.add(LSTM(units=trial.suggest_int('LSTM Neurons_0', 10, 100), return_sequences=True))
+    model.add(LSTM(units=trial.suggest_int('LSTM Neurons_0', 10, 500), return_sequences=True))
     model.add(Dropout(trial.suggest_float('Dropout Rate_0', .0001, .50)))
     # model.add(LSTM(units=trial.suggest_int('LSTM Neurons_1', 10, 1000), return_sequences=False))
     # model.add(Dropout(trial.suggest_float('Dropout Rate_1 ', .0001, .50)))
@@ -82,7 +69,8 @@ def objective(trial):
 
 if __name__ == "__main__":
     study = optuna.create_study(direction="minimize")
-    study.optimize(objective, n_trials=10, timeout=100_000)
+    
+    study.optimize(objective, n_trials=100, timeout=100_000)
 
     print("Number of finished trials: {}".format(len(study.trials)))
 

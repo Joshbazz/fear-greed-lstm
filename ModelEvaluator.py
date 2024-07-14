@@ -2,7 +2,7 @@ from generate_signals import generate_signal
 from plotting_utils import plot_predicted_actual, plot_residuals
 from tensorflow.keras.models import load_model
 
-# this needs to link up with DataPreprocessor to get train and test vals
+
 class ModelEvaluator:
     def __init__(self, model, X_test, y_test, X_test_scaled, y_test_scaled, y_scaler, model_path=None):
         self.model = model
@@ -54,8 +54,8 @@ class ModelEvaluator:
         
     def predict_model(self):
         self.predictions = self.model.predict(self.X_test_scaled)
-        self.predictions_inversed = self.y_scaler.inverse_transform(self.predictions).flatten()
-        self.y_test_inversed = self.y_scaler.inverse_transform(self.y_test_scaled).flatten()
+        self.predictions_inversed = self.y_scaler.inverse_transform(self.predictions)
+        self.y_test_inversed = self.y_scaler.inverse_transform(self.y_test_scaled)
         plot_predicted_actual(self.y_test_inversed, self.predictions_inversed)
         plot_residuals(self.y_test_inversed, self.predictions_inversed)
 

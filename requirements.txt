@@ -51,10 +51,11 @@ scipy==1.14.0
 seaborn==0.13.2
 soupsieve==2.5
 SQLAlchemy==2.0.31
-tensorboard==2.16.2
+tensorboard==2.16.2 
 tensorboard-data-server==0.7.2
 tensorflow==2.16.2
-tensorflow-io-gcs-filesystem==0.37.1
+# the below requirement is causing issues on Windows
+# tensorflow-io-gcs-filesystem==0.37.1
 termcolor==2.4.0
 threadpoolctl==3.5.0
 tqdm==4.66.4

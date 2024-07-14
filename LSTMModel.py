@@ -2,7 +2,8 @@ from datetime import datetime
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
 from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, LSTM, Input, Dropout
+from tensorflow.keras.layers import Dense, LSTM, Input, BatchNormalization, Bidirectional, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.optimizers import Adam
 from plotting_utils import *
 from fetch_data import fetch_fear_and_greed_btc
@@ -56,13 +57,16 @@ class LSTMModel:
             self.y_train_scaled,
             self.y_test_scaled,
             self.X_test,
-            self.y_test
+            self.y_test,
+            self.dates_train,
+            self.dates_test,
+            self.features_test_df
         ) = self.preprocessor.preprocess_data(self.data)
-
+        print(self.X_train_scaled.shape)
+    
     def reshape_for_lstm(self):
-        # Reshape from (samples, features) to (samples, 1, features)
-        self.X_train_scaled = self.X_train_scaled.reshape((self.X_train_scaled.shape[0], 1, self.X_train_scaled.shape[1])) 
-        self.X_test_scaled = self.X_test_scaled.reshape((self.X_test_scaled.shape[0], 1, self.X_test_scaled.shape[1])) 
+        self.X_train_scaled = self.X_train_scaled.reshape((self.X_train_scaled.shape[0], self.X_train_scaled.shape[1], self.X_train_scaled.shape[2]))
+        self.X_test_scaled = self.X_test_scaled.reshape((self.X_test_scaled.shape[0], self.X_test_scaled.shape[1], self.X_test_scaled.shape[2]))
 
     def build_model_lstm(self):
         self.reshape_for_lstm()
@@ -71,14 +75,18 @@ class LSTMModel:
 
         model = Sequential()
         model.add(Input(shape=(timesteps, features)))
-        model.add(LSTM(150, return_sequences=False))
-        model.add(Dropout(0.50)) # Dropout Regularization
-        model.add(Dense(20, activation='relu'))
+        model.add(LSTM(517, return_sequences=False))
+        model.add(Dropout(0.4808067231743268)) # Dropout Regularization
+        # model.add(LSTM(120, return_sequences=False))
+        # model.add(Dropout(0.23702192322434543)) # Dropout Regularization
+        model.add(Dense(36, activation='relu'))
+        # model.add(BatchNormalization()) # Batch Normalization
+        # model.add(Dense(10, activation='relu'))
         model.add(Dense(1))  # No activation for regression
         model.compile(optimizer=Adam(learning_rate=self.learning_rate), loss=self.loss, metrics=self.metrics)
         model.summary()
         self.model = model
-        # save_and_visualize_model(self.model)
+        save_and_visualize_model(self.model)
 
     def train_model(self):
         self.history = self.model.fit(
@@ -97,10 +105,11 @@ class LSTMModel:
     def evaluate_model(self):
         self.evaluator = ModelEvaluator(self.model, self.X_test, self.y_test, self.X_test_scaled, self.y_test_scaled, self.y_scaler)
         self.evaluator.evaluate_model()
-        self.evaluator.atr_to_data()
+        # self.evaluator.atr_to_data()
     
     def predict_model(self):
         self.predictions_inversed = self.evaluator.predict_model()
+        print(self.predictions_inversed.shape)
 
     def save_model(self):  
         self.model_path = f'{self.current_timestamp}_LSTM_model_epochs_{self.epochs}.keras'
@@ -108,7 +117,7 @@ class LSTMModel:
         print("Model saved successfully.")
 
     def generate_model_signals(self):
-        self.X_test = generate_signal(self.X_test, self.predictions_inversed)
+        self.X_test = generate_signal(self.features_test_df, self.predictions_inversed, self.dates_test)
         # print(self.X_test)
 
     def backtest_signals(self):
@@ -136,12 +145,14 @@ class LSTMModel:
         self.backtest_signals()
 
 
-model = LSTMModel(test_size=0.25, 
-                  learning_rate=0.001, 
+model = LSTMModel(#model_path = 'backtests/Low_MAE/backtest_3/2024_07_08_01_38_10_LSTM_model_epochs_145.keras',
+                  #data_path='fear_greed_btc_combined.csv',
+                  test_size=0.25, 
+                  learning_rate=0.0005514365217126862, 
                   epochs=50, 
-                  batch_size=32, 
+                  batch_size=122, 
                   validation_split=0.25, 
                   plot=True)
 
 model.run_and_train()
-
+# model.run_with_pretrained()
